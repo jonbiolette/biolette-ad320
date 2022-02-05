@@ -1,0 +1,14 @@
+.bar {
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    background-color: red;
+    display: flex;
+}
+
+.barTitle{
+    color:white;
+    margin-left: 10px !important;
+    display: block;
+}
