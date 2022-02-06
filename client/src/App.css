@@ -1,3 +1,19 @@
-.container{
+.container {
     display: flex;
+    width: 75vw;
+    justify-content: space-around;
+}
+
+.card {
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+
+}
+
+.cardControls{
+    display:flex;
+    width: 20vw;
+    margin-top:10px;
+    justify-content: space-evenly;
 }

@@ -4,14 +4,22 @@ import './App.css';
 import Topbar from './components/Topbar/Topbar'
 import CardNavigation from './components/CardNavigation/CardNavigation'
 import FlashCard from './components/FlashCard/FlashCard';
+import Button from './components/Button/Button';
 
 function App() {
     return (
       <React.Fragment>
             <Topbar />
-            <div style={{ display: 'flex' }}>
+            <div className = 'container'>
                 <CardNavigation />
-                <FlashCard />
+                <div className= 'card'>
+                    <FlashCard />
+                    <div className = 'cardControls'>
+                    <Button text = "Back"/>
+                    <Button text='Flip'/>
+                    <Button text='Next'/>
+                    </div>
+                </div>
             </div>
       </React.Fragment>
   );

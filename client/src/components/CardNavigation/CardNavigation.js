@@ -1,17 +1,15 @@
 import React from 'react'
 import './CardNavigation.css'
 
+
+const cardLinks = ['Card A', 'Card B', 'Card C', 'Card D', 'Card E', 'Card F', 'Card G']
 function CardNavigation() {
     return (
         <div className = 'cardNav'>
          < ul >
-        <li>Card A</li>
-        <li>Card A</li>
-        <li>Card A</li>
-        <li>Card A</li>
-        <li>Card A</li>
-        <li>Card A</li>
-        <li>Card A</li>
+                {cardLinks.map((link) => {
+                    return (<li>{link}</li>)
+                })}
 
 
         </ul>
