@@ -3,12 +3,12 @@
     height: 50px;
     margin: 0;
     padding: 0;
-    background-color: red;
+    background-color: #5E3023;
     display: flex;
 }
 
-.barTitle{
-    color:white;
+.barTitle {
+    color: #F3E9DC;
     margin-left: 10px !important;
     display: block;
 }

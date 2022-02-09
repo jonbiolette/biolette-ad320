@@ -1,9 +1,10 @@
 .cardNav {
-    width: 10vw;
-    background-color: lightcoral;
-    margin-top: 50px;
-    margin-left: 50px;
+    width: 125px;
+    height: 175px;
+    background-color: #C08552;
+    margin-top: 70px;
+    margin-left: 10px;
     color: white;
-    padding-top:20px;
-    padding-bottom:20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

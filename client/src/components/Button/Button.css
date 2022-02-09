@@ -1,0 +1,13 @@
+button{
+    font-size: 20px;
+    color:black;
+}
+button:hover {
+    background-color: #5E3023;
+    color: white;
+}
+
+.Button {
+    transition-duration: 0.4s;
+}
+
