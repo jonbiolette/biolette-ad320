@@ -1,0 +1,15 @@
+.FlashCard {
+    width: 50vw;
+    height: 10vw;
+    margin-top: 50px;
+    background-color: #895737;
+    display: flex;
+}
+img{
+    margin: 20px;
+}
+
+p {
+    margin: 10px;
+    color: white;
+}
