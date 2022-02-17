@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { UserId } from './UserId.js'
 
 const CardSchema = new mongoose.Schema({
     frontImage: String,

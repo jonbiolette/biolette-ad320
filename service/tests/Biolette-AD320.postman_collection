@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "7c5152ad-7302-4f68-914f-58eeb57dc5e5",
+		"name": "Biolette-AD320",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "card post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"frontText\": \"placeholder\",\r\n    \"frontImage\": \"http://dummyimage.com/200x200.png/dddddd/000000\",\r\n    \"backText\":\"placeholder\",\r\n    \"backImage\":\"http://dummyimage.com/200x200.png/dddddd/000000\",\r\n    \"deckId\": \"6209659306e982c79437000d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/cards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/userId/620b5b0cfd47d764aaf1d4a1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/userId/620b5b0cfd47d764aaf1d4a1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"userId",
+						"620b5b0cfd47d764aaf1d4a1"
+					]
+				},
+				"description": "Deck by user"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/decks/620b5b0cfd47d764aaf1d48d/cards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/decks/620b5b0cfd47d764aaf1d48d/cards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"decks",
+						"620b5b0cfd47d764aaf1d48d",
+						"cards"
+					]
+				},
+				"description": "Deck by deckiD"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/cards/620b5b0dfd47d764aaf1d4e3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/cards/620b5b0dfd47d764aaf1d4e3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"cards",
+						"620b5b0dfd47d764aaf1d4e3"
+					]
+				},
+				"description": "Get card by id\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/deck/620b5b0cfd47d764aaf1d48d",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/deck/620b5b0cfd47d764aaf1d48d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"deck",
+						"620b5b0cfd47d764aaf1d48d"
+					]
+				},
+				"description": "Delete by deck Id\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/cards/620cd65eff16c03ecd5be884/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"frontText\": \"placeholder\",\r\n    \"frontImage\": \"http://dummyimage.com/200x200.png/dddddd/000000\",\r\n    \"backText\":\"placeholder\",\r\n    \"backImage\":\"http://dummyimage.com/200x200.png/dddddd/000000\",\r\n    \"deckId\": \"620cd65cff16c03ecd5be7c3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/cards/620cd65eff16c03ecd5be884/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"cards",
+						"620cd65eff16c03ecd5be884",
+						"update"
+					]
+				},
+				"description": "Cards update\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/cards/620cd65eff16c03ecd5be884/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Update List\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/deck/620cd65cff16c03ecd5be7c3/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"deck",
+						"620cd65cff16c03ecd5be7c3",
+						"update"
+					]
+				},
+				"description": "Update Deck\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/cards/620cd65eff16c03ecd5be884/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"GOODBYE!\",\r\n    \"size\": \"9\"    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/deck/620cd65cff16c03ecd5be7c3/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"deck",
+						"620cd65cff16c03ecd5be7c3",
+						"update"
+					]
+				},
+				"description": "Update deck"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/cards/620cd65eff16c03ecd5be884/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Test Deck\",\r\n    \"cards\" : [],\r\n    \"size\" : \"0\",\r\n    \"userId\" : \"620cd65dff16c03ecd5be7c4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/deck",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"deck"
+					]
+				},
+				"description": "Create deck"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/deck/620cd65cff16c03ecd5be7c3/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"frontText\": \"placeholder\",\r\n    \"frontImage\": \"http://dummyimage.com/200x200.png/dddddd/000000\",\r\n    \"backText\":\"placeholder\",\r\n    \"backImage\":\"http://dummyimage.com/200x200.png/dddddd/000000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/cards/620e1fa19eaea6a63392ee34/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"cards",
+						"620e1fa19eaea6a63392ee34",
+						"update"
+					]
+				},
+				"description": "Update card by id"
+			},
+			"response": []
+		}
+	]
+}

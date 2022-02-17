@@ -2,9 +2,8 @@ import mongoose from 'mongoose'
 
 const UserSchema = new mongoose.Schema({
 
-   userId: [DeckSchema].userId,
-   deck:[DeckSchema]
+   userId: mongoose.Types.ObjectId,
 })
 
 
-export const Deck = mongoose.model('Deck', UserSchema)
+export const UserId = mongoose.model('UserId', UserSchema)

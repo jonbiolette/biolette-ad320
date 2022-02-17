@@ -26,9 +26,34 @@ app.use(exampleMiddleware)
 
 // Routes
 
-app.get('/', (req, res) => {
-    res.send('Hello, world!')
-})
+//Get a card by id -- DONE
+
+const cardsById = async (req, res) => {
+    if (req.params.id === undefined) {
+        res.sendStatus(400);
+    } else {
+        const id = req.params.id;
+        try {
+            const card = await Deck.findOne({
+                'cards._id': req.params.id
+            })
+            if (card === null) {
+                res.sendStatus(404);
+            }
+            else {
+                const oneCard = card.cards.id(req.params.id)
+                res.status(200)
+                res.send(oneCard)
+            }
+        } catch (error) {
+            res.status(400);
+            res.send(error);
+        }
+    }
+}
+
+app.get('/cards/:id', cardsById)
+
 
 //Get a deck by id -- DONE
 
@@ -43,6 +68,7 @@ app.get('/deck/:id', deckById)
 
 
 //Get a deck by user -- DONE
+
 const userById = async (req, res) => {
     const user = await Deck.findOne({
         userId : req.params.id
@@ -52,13 +78,43 @@ const userById = async (req, res) => {
 
 app.get('/userId/:id', userById)
 
-//Create a deck
+//Create a deck -- DONE
+
+app.post('/deck', async (req, res) => {
+    const deckRequest = req.body
+
+    if ((!deckRequest.name) ||
+        (!deckRequest.userId)) {
+        res.status(400).send('Deck data incomplete')
+        
+    }
+
+    if (!deckRequest.userId) {
+        res.status(400).send('User ID is required')
+        
+    }
+
+    try {
+             Deck.create({
+             "name": deckRequest.name,
+             "size": 0,
+             "userId": deckRequest.userId,
+             "cards": []
+             
+         })
+            
+            res.sendStatus(204)
+    } catch (err) {
+        console.log(`error in creating deck ${err}`)
+        res.sendStatus(502)
+    }
+})
+
 
 //Creat a card 
 
 app.post('/cards', async (req, res) => {
     const cardRequest = req.body
-    console.log(cardRequest)
 
     if ((!cardRequest.frontImage && !cardRequest.frontText) ||
         (!cardRequest.backImage && !cardRequest.backText)) {
@@ -101,48 +157,35 @@ app.post('/cards', async (req, res) => {
 
 
 //Update a card -- NEEDS WORK 
-
 app.post('/cards/:id/update', async (req, res) => {
-    const updateRequest = req.body
-    console.log(req.params.id)
-    if ((!updateRequest.frontImage && !updateRequest.frontText) ||
-        (!updateRequest.backImage && !updateRequest.backText)) {
-        res.status(400).send('Card data incomplete')
-    }
-
-    if ((updateRequest.frontImage && !isUrl(updateRequest.frontImage)) || (updateRequest.backImage && !isUrl(updateRequest.backImage))) {
-        res.status(400).send('Image fields must be valid URLs')
-    }
-
-    if (!updateRequest.deckId) {
-        res.status(400).send('Deck ID is required')
-    }
-
+        const update = req.params.id;
     try {
-        const deck = await Deck.findById(updateRequest.deckId)
-        if (deck) {
-            const card = await Deck.findById({
-                'cards._id': req.params.id
-            })
-            if (card) {
-                cards.push({
-                    frontImage: updateRequest.frontImage,
-                    frontText: updateRequest.frontText,
-                    backImage: updateRequest.backImage,
-                    backText: updateRequest.backText,
-                    deckId: updateRequest.deckId
-                })
-                await deck.save()
-                res.sendStatus(204)
-            } else {
-                res.sendStatus(404)
-            }
+        const card = await Deck.findOne({
+            'cards._id': req.params.id
+        })
+        if (card === null) {
+            res.sendStatus(404);
         }
-    } catch (err) {
-        console.log(`error in creating card ${err}`)
-        res.sendStatus(502)
+        else {
+            card.cards.id(req.params.id).updateOne({
+                frontText: update.frontText
+            }, {
+                frontImage: update.frontImage
+            }, {
+                backText: update.backText
+            }, {
+                backImage: update.backImage
+            });
+            res.sendStatus(204)
+        }
+    } catch (error) {
+        res.status(400);
+        res.send(error);
+        console.log(error)
     }
-})
+});
+
+
 
 
 //Update a deck -- DONE?
@@ -210,9 +253,6 @@ const deleteDeck = async (req, res) => {
 app.delete('/deck/:id', deleteDeck)
 
 
-
-
-
 //Delete a user -- -- NEEDS WORK 
 //change user to null
 const deleteUsersDeck = async (req, res) => {
@@ -235,34 +275,10 @@ app.get('/decks/:id/cards', async (req, res) => {
 })
 
 
-
-
-
-
-
-
-
-const cardsById = async (req, res) => {
-    const card = await Deck.findOne({
-        'cards._id': req.params.id
-    })
-    res.status(200).send(card)
-}
-
-app.get('/cards/:id', cardsById)
-
 const isUrl = (value) => {
     const re = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
     return re.test(value)
 }
-
-
-
-
-
-
-
-
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`)
