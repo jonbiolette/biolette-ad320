@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { UserId } from './UserId.js'
 
 const CardSchema = new mongoose.Schema({
     frontImage: String,
@@ -14,7 +13,6 @@ const DeckSchema = new mongoose.Schema({
     cards: [CardSchema],
     size: Number,
     userId: mongoose.Types.ObjectId
-
 })
 
 export const Deck = mongoose.model('Deck', DeckSchema)
