@@ -1,53 +1,39 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 import mongoose from 'mongoose'
-import { Deck } from '../models/Deck.js'
+import { v4 } from 'uuid'
+import { User } from '../models/User.js'
 
-import decks from '../testData/decks.json'
-import cards from '../testData/cards.json'
+import users from './users.json'
 
 const sleepAndQuit = new Promise((resolve) => {
-    setTimeout(() => {
-        mongoose.connection.close()
-        resolve()
-    }, 5000)
+  setTimeout(() => {
+    mongoose.connection.close()
+    resolve()
+  }, 5000)
 })
 
 const initDB = async () => {
-    const connectionString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@deck.j6ajd.mongodb.net/Deck?retryWrites=true&w=majority`
-    try {
-    try {
-        await mongoose.connect(connectionString)
-    } catch (err) {
-        console.log('error ', err)
-    }
+  const connectionString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@crit-cluster.bpw1p.mongodb.net/notoriety?retryWrites=true&w=majority`
+  try {
+    await mongoose.connect(connectionString)
+  } catch (err) {
+    console.log('error ', err)
+  }
 
-    const deckDocs = []
-
-    for (const deck of decks) {
-        const newDeck = await Deck.create({
-            name: deck.name,
-            size: 0,
-            userId: new mongoose.Types.ObjectId()
-        })
-        deckDocs.push(newDeck)
-    }
-
-    for (const card of cards) {
-        deckDocs[card.deck_id % 10].cards.push({
-            frontImage: card.front_image,
-            frontText: card.front_text,
-            backImage: card.back_image,
-            backText: card.back_text
-        })
-        deckDocs[card.deck_id % 10].size++
-    }
-
-    deckDocs.forEach(async (deck) => {
-        await deck.save()
+  for (const user of users) {
+    await User.create({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      decks: user.decks,
+      email: user.email,
+      password: v4()
     })
+  }
 
-    await sleepAndQuit
+  await sleepAndQuit
 
-    console.log('finished saving decks')
+  console.log('finished saving users')
 }
 
 initDB()
