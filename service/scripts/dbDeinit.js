@@ -1,27 +1,26 @@
 import mongoose from 'mongoose'
-import { Deck } from '../models/Deck.js'
+import { User } from '../models/User.js'
 
 const sleepAndQuit = new Promise((resolve) => {
-    setTimeout(() => {
-        mongoose.connection.close()
-        resolve()
-    }, 5000)
+  setTimeout(() => {
+    mongoose.connection.close()
+    resolve()
+  }, 5000)
 })
 
 const deinitDB = async () => {
-    const connectionString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@deck.j6ajd.mongodb.net/Deck?retryWrites=true&w=majority`
-    try {
-    try {
-        await mongoose.connect(connectionString)
-    } catch (err) {
-        console.log('error ', err)
-    }
+  const connectionString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@crit-cluster.bpw1p.mongodb.net/notoriety?retryWrites=true&w=majority`
+  try {
+    await mongoose.connect(connectionString)
+  } catch (err) {
+    console.log('error ', err)
+  }
 
-    await Deck.deleteMany({})
+  await User.deleteMany({})
 
-    await sleepAndQuit
+  await sleepAndQuit
 
-    console.log('finished deleting decks')
+  console.log('finished deleting users')
 }
 
 deinitDB()
