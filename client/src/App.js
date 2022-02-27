@@ -1,28 +1,30 @@
-import React from 'react'
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import Container from '@mui/material/Container'
+import './App.css'
 import Topbar from './components/Topbar/Topbar'
-import CardNavigation from './components/CardNavigation/CardNavigation'
-import FlashCard from './components/FlashCard/FlashCard';
-import Button from './components/Button/Button';
+import DeckProvider from './components/Deck/DeckProvider'
+import axios from 'axios'
 
 function App() {
-    return (
-      <React.Fragment>
-            <Topbar />
-            <div className = 'container'>
-                <CardNavigation />
-                <div className= 'card'>
-                    <FlashCard />
-                    <div className = 'cardControls'>
-                    <Button text = "Back"/>
-                    <Button text='Flip'/>
-                    <Button text='Next'/>
-                    </div>
-                </div>
-            </div>
-      </React.Fragment>
-  );
+  const [createMode, setCreateMode] = useState(false)
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/users').then((response) => {
+      console.log(`response from users ${response.data[0].firstName}`)
+      setUser(response.data[0])
+    })
+  }, [])
+
+  return (
+    <React.Fragment>
+      <Topbar createMode={createMode} createCardHandler={() => { setCreateMode(!createMode) }} />
+      <Container width="lg">
+        {user === null ? <span>Loading...</span> :
+          <DeckProvider userId={user._id} decks={user.decks} createMode={createMode} /> }
+      </Container>
+    </React.Fragment>
+  )
 }
 
 export default App;
