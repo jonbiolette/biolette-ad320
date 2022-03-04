@@ -4,19 +4,15 @@
     justify-content: space-around;
 }
 
-.card {
+.card-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
-    
 }
 
-.cardControls{
-    display:flex;
+.card-controls {
+    margin-top: 10px;
     width: 20vw;
-    margin-top:25px;
+    display: flex;
     justify-content: space-evenly;
-    block-size:25px;
-    
 }
