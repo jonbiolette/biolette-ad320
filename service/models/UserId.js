@@ -1,10 +1,25 @@
 import mongoose from 'mongoose'
 
-const UserSchema = new mongoose.Schema({
-
-   userId: [DeckSchema].userId,
-   deck:[DeckSchema]
+const UserIdSchema = new mongoose.Schema({
+    firstName: {
+        type: String
+    },
+    lastName: {
+        type: String
+    },
+    userName: {
+        type: String
+    },
+    password: {
+        type: String
+    },
+    emailAddress: {
+        type: String
+    },
+    decks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Deck'
+    }]
 })
 
-
-export const Deck = mongoose.model('Deck', UserSchema)
+export const UserId = mongoose.model('UserId', UserIdSchema)

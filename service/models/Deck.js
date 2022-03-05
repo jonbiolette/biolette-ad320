@@ -13,7 +13,6 @@ const DeckSchema = new mongoose.Schema({
     cards: [CardSchema],
     size: Number,
     userId: mongoose.Types.ObjectId
-
 })
 
 export const Deck = mongoose.model('Deck', DeckSchema)
