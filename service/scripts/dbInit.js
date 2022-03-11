@@ -7,33 +7,35 @@ import { User } from '../models/User.js'
 import users from './users.json'
 
 const sleepAndQuit = new Promise((resolve) => {
-  setTimeout(() => {
-    mongoose.connection.close()
-    resolve()
-  }, 5000)
+    setTimeout(() => {
+        mongoose.connection.close()
+        resolve()
+    }, 5000)
 })
 
 const initDB = async () => {
     const connectionString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@deck.j6ajd.mongodb.net/Deck?retryWrites=true&w=majority`
-  try {
-    await mongoose.connect(connectionString)
-  } catch (err) {
-    console.log('error ', err)
-  }
+    try {
+        await mongoose.connect(connectionString)
+    } catch (err) {
+        console.log('error ', err)
+    }
 
-  for (const user of users) {
-    await User.create({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      decks: user.decks,
-      email: user.email,
-      password: v4()
-    })
-  }
+    for (const user of users) {
+        await User.create({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            decks: user.decks,
+            email: user.email,
+            password: v4(),
+            active: true
+        })
+    }
 
-  await sleepAndQuit
+    await sleepAndQuit
 
-  console.log('finished saving users')
+    console.log('finished saving users')
 }
 
 initDB()
+
