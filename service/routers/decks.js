@@ -20,16 +20,17 @@ const getDecks = async (req, res) => {
     }
 }
 
+//working here
 const createDeck = async (req, res) => {
-    const userId = ''
+    const { userId } = req.user
+    const requestor = await User.findById(userId)
     const newDeck = req.body
     try {
-        const user = await User.findById(userId)
-        user.decks.push({
+        requestor.decks.push({
             name: newDeck.name,
             cards: []
         })
-        await user.save()
+        await requestor.save()
         res.sendStatus(204)
     } catch (err) {
         console.log(`${createDeck.name}: ${err}`)
@@ -38,7 +39,7 @@ const createDeck = async (req, res) => {
 }
 
 const createCard = async (req, res) => {
-    const userId = ''
+    const userId = req.user.userId
     const deckId = req.params.id
     const newCard = req.body
     try {
@@ -70,18 +71,24 @@ const deleteDeck = async (req, res) => {
 }
 
 const updateDeck = async (req, res) => {
-    const userId = ''
-    const deckId = req.params.id
+    const { userId } = req.user
+    res.send(req.params)
+    const requestor = await User.findById(userId)
     const newDeck = req.body
-    try {
-        const user = await User.findById(userId)
-        const deck = user.decks.id(deckId)
-        deck.name = newDeck.name
-        await user.save()
-        res.sendStatus(204)
-    } catch (err) {
-        console.log(`${updateDeck.name}: ${err}`)
-        res.sendStatus(500)
+    const deckId = req.params.id
+    if (requestor.role === "admin" || requestor.role === "superuser"
+        ||(requestor.role === "user" && requestor.id === req.params.id)) {
+        try {
+            const deck = requestor.decks.id(deckId)
+            deck.name = newDeck.name
+            await requestor.save()
+            res.sendStatus(204)
+        } catch (err) {
+            console.log(`${updateDeck.name}: ${err}`)
+            res.sendStatus(500)
+        }
+    } else {
+        res.send("Forbidden")
     }
 }
 

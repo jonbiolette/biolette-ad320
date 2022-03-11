@@ -15,11 +15,10 @@ function santizeUsers(users) {
     return sanitizedUser
 }
 
-
 const getUsers = async (req, res) => {
     const { userId } = req.user
     const requestor = await User.findById(userId)
-    if (requestor.role[0] === "admin" || requestor.role[0] === 'superuser') {
+    if (requestor.role === "admin" || requestor.role === 'superuser') {
         const users = await User.find({})
         res.send(santizeUsers(users))
     } else {
@@ -27,17 +26,10 @@ const getUsers = async (req, res) => {
     }
 }
 
-//const getUsersById = async (req, res) => {
-//    const user = await User.findById(req.params.id)
-//    res.send(user)
-//}
-
 const getUsersById = async (req, res) => {
     const { userId } = req.user
-    //res.send(userId) return requestor id
-    //res.send(req.params) return users id
     const requestor = await User.findById(userId)
-    if (requestor.role[0] === 'admin' || requestor.role[0] === 'superuser') {
+    if (requestor.role === 'admin' || requestor.role === 'superuser') {
         const user = await User.findById(req.params.id)
         res.send(user)
     } else {
@@ -45,20 +37,14 @@ const getUsersById = async (req, res) => {
     }
 }
 
-//const updateUser = async (req, res) => {
-//    const result = await User.findByIdAndUpdate(req.params.id, req.body)
-//    console.log('result ', result)
-//    res.sendStatus(503)
-//}
-
 const updateUser = async (req, res) => {
     const { userId } = req.user
     const requestor = await User.findById(userId)
-    if (requestor.role[0] === 'admin') {
+    if (requestor.role === 'admin') {
         const result = await User.findByIdAndUpdate(req.params.id, req.body)
         console.log('result ', result)
         res.sendStatus(503)
-    } else if (requestor.role[0] === 'superuser' || requestor.role[0] === 'user' && requestor.id === req.params[0]){
+    } else if (requestor.role === 'superuser' || requestor.role === 'user' && requestor.id === req.params[0]) {
         const result = await User.findByIdAndUpdate(req.params.id, req.body)
         console.log('result ', result)
         res.sendStatus(503)
@@ -67,16 +53,10 @@ const updateUser = async (req, res) => {
     }
 }
 
-//const deleteUser = async (req, res) => {
-//    const result = await User.findByIdAndUpdate(req.params.id, { active: false })
-//    console.log('result ', result)
-//    res.sendStatus(503)
-//}
-
 const deleteUser = async (req, res) => {
     const { userId } = req.user
     const requestor = await User.findById(userId)
-    if (requestor.role[0] === 'admin' || (requestor.role[0] === 'superuser' && requestor.id === req.params[0])) {
+    if (requestor.role === 'admin' || (requestor.role === 'superuser' && requestor.id === req.params[0])) {
         const result = await User.findByIdAndUpdate(req.params.id, { active: false })
         console.log('result ', result)
         res.sendStatus(503)
