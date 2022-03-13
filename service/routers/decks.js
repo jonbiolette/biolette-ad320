@@ -20,7 +20,6 @@ const getDecks = async (req, res) => {
     }
 }
 
-//working here
 const createDeck = async (req, res) => {
     const { userId } = req.user
     const requestor = await User.findById(userId)
@@ -56,32 +55,39 @@ const createCard = async (req, res) => {
 }
 
 const deleteDeck = async (req, res) => {
-    const userId = ''
-    const deckId = req.params.id
+    const requestor = await User.findById(req.user.userId)
+    const decksUser = await User.find({ 'decks._id': req.params.id })
+    const user = decksUser[0]
+
+    if (requestor.id === user.id || requestor.role === "admin" ||
+        requestor.role === "superuser") {
     try {
-        const user = await User.findById(userId)
-        const removedDeck = user.decks.id(deckId).remove()
+        const removedDeck = user.decks.id(req.params.id).remove()
         console.log(removedDeck)
         user.save()
         res.sendStatus(204)
     } catch (err) {
         console.log(`${deleteDeck.name}: ${err}`)
         res.sendStatus(500)
+        }
+    } else {
+        res.send("Forbidden")
     }
 }
 
 const updateDeck = async (req, res) => {
-    const { userId } = req.user
-    res.send(req.params)
-    const requestor = await User.findById(userId)
+    const requestor = await User.findById(req.user.userId)
+    const decksUser = await User.find({ 'decks._id': req.params.id })
+    const user = decksUser[0]
     const newDeck = req.body
-    const deckId = req.params.id
-    if (requestor.role === "admin" || requestor.role === "superuser"
-        ||(requestor.role === "user" && requestor.id === req.params.id)) {
+
+    if (requestor.id === user.id || requestor.role === "admin" ||
+        requestor.role === "superuser") {
+
         try {
-            const deck = requestor.decks.id(deckId)
+            const deck = user.decks.id(req.params.id)
             deck.name = newDeck.name
-            await requestor.save()
+            await user.save()
             res.sendStatus(204)
         } catch (err) {
             console.log(`${updateDeck.name}: ${err}`)
