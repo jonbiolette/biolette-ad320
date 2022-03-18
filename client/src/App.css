@@ -1,18 +1,18 @@
 .container {
-    display: flex;
-    width: 75vw;
-    justify-content: space-around;
+  display: flex;
+  width: 75vw;
+  justify-content: space-around;
 }
 
 .card-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .card-controls {
-    margin-top: 10px;
-    width: 20vw;
-    display: flex;
-    justify-content: space-evenly;
+  margin-top: 10px;
+  width: 20vw;
+  display: flex;
+  justify-content: space-evenly;
 }

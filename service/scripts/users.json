@@ -218,7 +218,8 @@
           }
         ]
       }
-    ]
+    ],
+    "role": "admin"
   },
   {
     "firstName": "Whitney",
@@ -828,7 +829,8 @@
           }
         ]
       }
-    ]
+    ],
+    "role": "superuser"
   },
   {
     "firstName": "Van",
